@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>guess a number</title>
+  </head>
+  <body>
+    <div>
+      <p style="color: green">Jeu : trouver le nombre</p>
+      <b>Appel de la fonction javascript dans cette page html:</b>
+      <input type="button" onClick="gamePlay()" value="Guess a number" />
+    </div>
+    <div id="display">
+      <p>range 0 &lsaquo; ? &lsaquo; 50</p>
+      <input type="number" id="QuiDevinne" value="TheGuess" min="0" max="50" />
+      <button class type="button" onClick="gamePlay()">Make a guess</button>
+      <p id="info_jeu"></p>
+    </div>
+  </body>
+
+  <script>
+    function generate_random_number(max) {
+      return Math.floor(Math.random() * max);
+    }
+
+    function didIwin(givenNumber, toGuess) {
+      if (givenNumber !== toGuess) {
+        if (givenNumber < toGuess) {
+          //alert("plus grand");
+          document.getElementById("info_jeu").innerText = "plus grand";
+          UserWin = false;
+          //givenNumber = parseInt(prompt("Choisi un nombre"));
+        } else if (givenNumber > toGuess) {
+          alert("plus petit");
+          UserWin = false;
+          givenNumber = parseInt(prompt("Choisi un nombre"));
+        }
+      }
+      alert("youpi tu as trouvé!");
+      return UserWin;
+    }
+
+    function gamePlay() {
+      let toGuess;
+      let givenNumber;
+      let UserWin = false;
+
+      toGuess = generate_random_number(50);
+      console.log(toGuess);
+      givenNumber = document.getElementById("QuiDevinne").value;
+      givenNumber = parseInt(givenNumber);
+
+      console.log(typeof givenNumber);
+      console.log(givenNumber);
+      //didIwin(givenNumber, toGuess);
+    }
+
+    // document.getElementById('sumResult').innerText = sumAPlusB;
+  </script>
+</html>

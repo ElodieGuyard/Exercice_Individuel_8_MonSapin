@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>guess a number</title>
+</head>
+<body>
+      
+    <p style="color: green">
+        The content above was created with JavaScript.<br>
+        This content is created with <b>HTML</b>.<br>
+        You can edit JavaScript and HTML in the left part of the page
+        and click "<b>Run code</b>" to view results in the right part of the page.
+        </p>
+        <b>LESSON 4: CALL A JAVASCRIPT FUNCTION:</b>
+        <input type=button onClick="gamePlay()" value="Guess a number">
+
+</body>
+
+<script>
+
+function gamePlay(){
+
+let givenNumber;
+let UserWin;
+
+
+function didIwin(givenNumber){
+    givenNumber = prompt("Choisi un nombre");
+        
+    if (givenNumber<22){
+        alert("plus grand");
+        UserWin = false;
+    }    
+    else if (givenNumber>22){
+        alert ("plus petit");
+        UserWin = false;
+    }    
+    else {
+        alert("Bravo ! Vous avez deviné le nombre")
+        UserWin = true;
+    }
+    return UserWin;
+}
+
+didIwin();
+console.log(didIwin(givenNumber));
+if (didIwin(givenNumber) == false){
+    didIwin();
+}
+
+}
+    
+    
+    </script>
+
+</html>

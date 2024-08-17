@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>guess a number</title>
+  </head>
+  <body>
+    <p style="color: green">Jeu : trouver le nombre</p>
+    <b>Appel de la fonction javascript dans cette page html:</b>
+    <input type="button" onClick="gamePlay()" value="Guess a number" />
+  </body>
+
+  <script>
+    function gamePlay() {
+      let toGuess;
+      let givenNumber;
+      let UserWin = false;
+
+      function didIwin(givenNumber, toGuess) {
+        while (givenNumber !== toGuess) {
+          if (givenNumber < toGuess) {
+            alert("plus grand");
+            UserWin = false;
+            givenNumber = parseInt(prompt("Choisi un nombre"));
+          } else if (givenNumber > toGuess) {
+            alert("plus petit");
+            UserWin = false;
+            givenNumber = parseInt(prompt("Choisi un nombre"));
+          }
+        }
+        alert("youpi tu as trouvé!");
+        return UserWin;
+      }
+
+      toGuess = parseInt(prompt("J1 choisi un nombre entre 0 et 50"));
+
+      while (toGuess > 50 || Math.sign(toGuess) == -1) {
+        toGuess = parseInt(prompt("J1 choisi un nombre entre 0 et 50"));
+      }
+
+      console.log(toGuess);
+
+      givenNumber = parseInt(prompt("Choisi un nombre"));
+      console.log(typeof givenNumber);
+      didIwin(givenNumber, toGuess);
+    }
+  </script>
+</html>

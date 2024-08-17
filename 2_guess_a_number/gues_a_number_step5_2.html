@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>guess a number</title>
+  </head>
+
+  <body>
+    <div>
+      <p style="color: green">Jeu : trouver le nombre</p>
+      <b>Appel de la fonction javascript dans cette page html:</b>
+
+      <input
+        type="number"
+        id="myguess"
+        name="name"
+        min="0"
+        max="50"
+        size="10"
+      />
+      <button onClick="didIwin()" type="button">Guess a number</button>
+      <p id="info_jeu"></p>
+      <p id="nombre_tentatives"></p>
+    </div>
+  </body>
+
+  <script>
+    let random_nb = 51;
+    let compteur_tentatives = 0;
+
+    function didIwin() {
+      let UserWin = false;
+      let givenNumber;
+
+      let inputGuess = document.getElementById("myguess");
+      givenNumber = inputGuess.value;
+      console.log(givenNumber); // affiche ce qui est contenu dans la balise name
+
+      if (givenNumber < random_nb) {
+        compteur();
+        document.getElementById("info_jeu").innerText = "plus grand";
+        document.getElementById("nombre_tentatives").innerText =
+          compteur_tentatives;
+        UserWin = false;
+
+        console.log(compteur_tentatives);
+      } else if (givenNumber > random_nb) {
+        compteur();
+        document.getElementById("info_jeu").innerText = "plus petit";
+        document.getElementById("nombre_tentatives").innerText =
+          compteur_tentatives;
+        UserWin = false;
+        console.log(compteur_tentatives);
+      } else {
+        alert("youpi tu as trouvé!");
+      }
+      return UserWin;
+    } //end of didIwin
+
+    function random_number() {
+      let min = 0;
+      let max = 50;
+      const minCeiled = Math.ceil(min);
+      const maxFloored = Math.floor(max);
+      random_nb = Math.floor(
+        Math.random() * (maxFloored - minCeiled + 1) + minCeiled
+      ); // The maximum is inclusive and the minimum is inclusive
+
+      return random_nb;
+    }
+
+    function compteur() {
+      compteur_tentatives = compteur_tentatives + 1;
+    }
+
+    window.addEventListener("load", function chargeR_nb() {
+      let testrand = random_number();
+      console.log(
+        "Cette fonction est exécutée une fois quand la page est chargée. " +
+          testrand +
+          "   " +
+          random_nb
+      );
+    });
+  </script>
+</html>

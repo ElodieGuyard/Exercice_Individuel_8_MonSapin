@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jeu des allumettes</title>
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+</head>
+<body>
+  <h1>Jeu des allumettes</h1>
+  <h2>Règles du Jeu :</h2>
+  <p>On décrit le jeu des allumettes : 
+    au départ, il y a un tas de 50 allumettes, 
+    (ou tout autre objet : cailloux, jetons, . . .). 
+    Chacun à son tour, les deux joueurs ôtent 
+    obligatoirement entre 1 et 6  allumettes. 
+    Celui qui ôte la dernière allumette gagne.</p> 
+    
+    <label for="inputNbJ">Nombre de joueurs : 1 ou 2</label>
+    <input type="number" name="inputNbJ" id="inputNbJoueurs" min="1" max="2" />
+    <button type="button" id="validInputNbJoueurs">Valider ce nombre de joueurs</button>
+    <p id="nbJoueurs" hidden></p>
+    <div>
+      <h2>Statistiques partie</h2>
+      <p id="J1">Hits Player 1 : </p>
+      <p id="J2">Hits Player 2 :</p>
+    </div>
+    
+    <label for = "displayAllu"> Nombre d'allumetttes sur la table : </label>
+    <p name = "displayAllu" id = "DisplayAllumettes"></p>
+
+    <h4 id="auTourDe"></h4>
+    <label for="inputUserAllumettes">Nombre d'allumettes à pouvoir être retirées commprises entre 1 et 6</label>
+    <input type="number" name="inputUserAllumettes" id="inputUserAllumetteToDelete" min="1" max="6" />
+    <button type="button" id="ButtonAllumettesToDelete">Enlever ce nombre d'allumettes</button>
+    <h4 id="victory" hidden>Victoire !!!</h4>
+    <p id = "erreurSaisie"></p>
+  </body>
+  <script src="./JeuDesAllumettes.js"></script>
+  </html>

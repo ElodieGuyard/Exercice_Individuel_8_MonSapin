@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Mastermind</title>
+      <script src="mastermind.js"></script>
+      <style src="style.css"></style>
+</head>
+<body>
+      <div id="display">
+            <button id="yellowButton" onclick="getColors(`yellow`)">YELLOW</button> 
+            <button id="blueButton" onclick="getColors(`blue`)">BLUE</button>
+            <button id="redButton" onclick="getColors(`red`)">RED</button>
+            <button id="greenButton" onclick="getColors(`green`)">GREEN</button>
+            <button id="whiteButton" onclick="getColors(`white`)">WHITE</button>
+            <button id="blackButton" onclick="getColors(`black`)">BLACK</button>
+            <button id="undo" onclick="undoColor()">undo</button>
+            <button id="submit" onclick="gamePlay()">submit</button>
+            <p id="turn"></p>
+            <p id="colorChoosen"></p>
+            
+      </div>
+      <p id="victory" hidden>Victoire !</p>
+</body>
+</html>

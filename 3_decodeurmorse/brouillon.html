@@ -1,0 +1,25 @@
+<body>
+  <h1>Print some arrays</h1>
+
+  <p id="arrays"></p>
+
+  <script>
+    // Show array content index by index
+    function showArray(array) {
+      //Definition d'un fonction qui s'appelle showArray de paramètre array
+      for (var i = 1; i < array.length; i++) {
+        //pour naviguer dans le tableau array: id doit = 0 !!!
+        console.log(array[i]); //affichage dans la console de l'element à l'id actuel
+        // Add array's index element to the html file
+        document.getElementById("arrays").innerText += array[i];
+        document.getElementById("arrays").innerText += "\n";
+      }
+      document.getElementById("arrays").innerText += "\n------------------\n";
+    }
+
+    showArray("abcef"); //les chaînes de caractères : vu comme un tableau de caractères, 5 lignes dans le tableau
+    // autre façon de l'écrire showArray(["a","b","c","e","f"]);
+    showArray(["abcdef", "ghijkl", "mnop"]); //avec les crochets : ces chaînes de caractères sont le résultat, donc 3 resultats id dans le tableau
+    showArray([1, 2, 3, 4, 5]); // ici 5 éléments dans le tableau aussi
+  </script>
+</body>

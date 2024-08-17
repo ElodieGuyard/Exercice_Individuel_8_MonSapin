@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Traducteur Morse</title>
+    <!--     <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    /> -->
+  </head>
+  <body>
+    <div name="partie latinToMorse">
+      <label for="traduire">Phrase à traduire :</label>
+      <input type="text" id="the_chaine" name="traduire" />
+      <button onClick="encode()">traduire en morse</button>
+      <p id="la_trad"></p>
+    </div>
+    <div name="partie MorseToLatin">
+      <label for="traduire">Phrase à traduire :</label>
+      <input type="text" id="the_chaine_morse" name="traduireMorse" />
+      <button onClick="decode()">traduire en lettres Latines</button>
+      <p id="la_trad_latine"></p>
+    </div>
+
+    <!--     <div class="container px-4 text-center">
+      <div class="row gx-5">
+        <div class="col">
+          <div class="p-3">Custom column padding</div>
+        </div>
+        <div class="col">
+          <div class="p-3">Custom column padding</div>
+        </div>
+      </div>
+    </div> -->
+  </body>
+  <!--   <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"
+  ></script> -->
+
+  <script>
+    /* Déclaration des variables pour encoder une chaîne de caractères*/
+    let element_de_la_chaine;
+    let chaine_caracteres = "";
+    let chaine_filtree = "";
+    let chaine_slash = "";
+    let chaine_en_tableau = [];
+    let chaine_en_MAJ = [];
+    let chaine_traduite = "";
+
+    /* Déclaration des variables pour décoder une chaîne de caractères*/
+    let element_input_morse;
+    let la_chaine_to_Latin;
+    let le_morse_dans_table = [];
+    let chaine_morse_traduite = "";
+
+    const latinToMorse = {
+      A: ".-",
+      B: "-...",
+      C: "-.-.",
+      D: "-..",
+      E: ".",
+      F: "..-.",
+      G: "--.",
+      H: "....",
+      I: "..",
+      J: ".---",
+      K: "-.-",
+      L: ".-..",
+      M: "--",
+      N: "-.",
+      O: "---",
+      P: ".--.",
+      Q: "--.-",
+      R: ".-.",
+      S: "...",
+      T: "-",
+      U: "..-",
+      V: "...-",
+      W: ".--",
+      X: "-..-",
+      Y: "-.--",
+      Z: "--..",
+    };
+
+    const morseToLatin = {
+      "-": "T",
+      "--": "M",
+      "---": "O",
+      "--.": "G",
+      "--.-": "Q",
+      "--..": "Z",
+      "-.": "N",
+      "-.-": "K",
+      "-.--": "Y",
+      "-.-.": "C",
+      "-..": "D",
+      "-..-": "X",
+      "-...": "B",
+      ".": "E",
+      ".-": "A",
+      ".--": "W",
+      ".---": "J",
+      ".--.": "P",
+      ".-.": "R",
+      ".-..": "L",
+      "..": "I",
+      "..-": "U",
+      "..-.": "F",
+      "...": "S",
+      "...-": "V",
+      "....": "H",
+    };
+
+    /* ******************************Fonctions d'encodage***************************** */
+
+    function Filtre(la_chaine_a_filtrer) {
+      la_chaine_a_filtrer = la_chaine_a_filtrer.replace(
+        /[&\/\\#,+()$~%.'":*?<>{}]/g,
+        ""
+      );
+      return la_chaine_a_filtrer;
+    }
+
+    function Format(la_chaine_a_formater) {
+      la_chaine_a_formater = la_chaine_a_formater.replace(/[ ]/g, "/"); //entre chaque mot " ", on met un /
+      //entre chaque lettre, on y met un espace
+      //bonne chance à moi même du futur
+      return la_chaine_a_formater;
+    }
+
+    function getLatinCharacterList(chaine_a_mettre_en_tableau) {
+      let tableau_caracteres = [];
+      for (i = 0; i < chaine_a_mettre_en_tableau.length; i++) {
+        tableau_caracteres.push(chaine_a_mettre_en_tableau[i]);
+      }
+      return tableau_caracteres;
+    }
+
+    function Traiter_minuscules(la_chaine_a_majusculer) {
+      la_chaine_a_majusculer.forEach((element) => {
+        chaine_en_MAJ.push(element.toUpperCase());
+      });
+      return chaine_en_MAJ;
+    }
+
+    function translateLatinCharacter(la_chaine_a_traduire) {
+      let traduction = "";
+      la_chaine_a_traduire.forEach((element) => {
+        if (element !== "/") {
+          traduction = traduction + " " + latinToMorse[element];
+        } else {
+          traduction = traduction + " " + element;
+        }
+      });
+      return traduction;
+    }
+
+    /* ******************************************************************************** */
+
+    /* ******************************Fonctions de décodage***************************** */
+
+    function push_dans_table(la_chaine_a_push_dans_table) {
+      let la_lettre_en_morse = "";
+      let dans_une_table = [];
+      la_chaine_a_push_dans_table = la_chaine_a_push_dans_table + " ";
+      for (i = 0; i < la_chaine_a_push_dans_table.length; i++) {
+        if (la_chaine_a_push_dans_table[i] !== " ") {
+          la_lettre_en_morse =
+            la_lettre_en_morse + la_chaine_a_push_dans_table[i];
+        } else {
+          dans_une_table.push(la_lettre_en_morse);
+          la_lettre_en_morse = "";
+        }
+      }
+      return dans_une_table;
+    }
+
+    function translateMorseCharacter(la_chaine_a_traduire) {
+      let traduction = "";
+      la_chaine_a_traduire.forEach((element) => {
+        if (element !== "/") {
+          traduction = traduction + morseToLatin[element];
+        } else {
+          traduction = traduction + " ";
+        }
+      });
+      return traduction;
+    }
+
+    /* ******************************************************************************** */
+
+    /* **********************  Routine de décodage complète  ************************** */
+    function encode() {
+      //nettoie l'element la trad
+      document.getElementById("la_trad").innerText = "";
+
+      element_de_la_chaine = document.getElementById("the_chaine");
+      chaine_caracteres = element_de_la_chaine.value;
+
+      chaine_filtree = Filtre(chaine_caracteres);
+      console.log(chaine_filtree);
+
+      chaine_slash = Format(chaine_filtree);
+      console.log(chaine_slash);
+
+      chaine_en_tableau = getLatinCharacterList(chaine_slash);
+      console.log(chaine_en_tableau);
+
+      chaine_en_MAJ = Traiter_minuscules(chaine_en_tableau);
+      console.log(chaine_en_MAJ);
+
+      chaine_traduite = translateLatinCharacter(chaine_en_MAJ);
+      console.log(chaine_traduite);
+
+      document.getElementById("la_trad").innerText = chaine_traduite;
+    }
+
+    /* ******************************************************************************** */
+
+    function decode() {
+      //nettoie l'element trad latine
+      document.getElementById("la_trad_latine").innerText = "";
+
+      //récupère la valeur de l'input qui a pour id "the chaine morse"
+      element_input_morse = document.getElementById("the_chaine_morse");
+      la_chaine_to_Latin = element_input_morse.value;
+
+      //met la chaine de caractère morse dans un tableau array
+      la_chaine_dans_table = push_dans_table(la_chaine_to_Latin);
+
+      //traduit chaque caractère morse et le met dans la variable "chaine_morse_traduite"
+      chaine_morse_traduite = translateMorseCharacter(la_chaine_dans_table);
+
+      //affiche le résultat de tout le processus de décodage
+      document.getElementById("la_trad_latine").innerText =
+        chaine_morse_traduite;
+    }
+  </script>
+</html>
